@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+
     [Header("REFERENCES")]
     [SerializeField] private Transform playerGraphic;
 
@@ -15,6 +17,13 @@ public class PlayerController : MonoBehaviour
     private bool isTurnedRight = true;
 
     private Vector3 targetPosition;
+
+
+    private void Awake()
+    {
+        if(instance != this)
+            instance = this;
+    }
 
     private void Update()
     {

@@ -13,7 +13,6 @@ public class Projectile : Skill
 
     [Header("PARAMETERS")]
     [SerializeField] private LayerMask enemyLayerMask;
-    [SerializeField] private float skillRange;
     [SerializeField] private float projectileSpeed;
 
     private Transform target;
@@ -30,18 +29,18 @@ public class Projectile : Skill
                 if (CheckActivationConditions())
                 {
                     ActivateSkill();
-                    skillActualCooldown = skillCooldown;
+                    skillActualCooldown = skillBaseCooldown;
                 }
             }
         }
     }
     public override bool CheckActivationConditions()
     {
-        Collider2D[] enemiesFound = Physics2D.OverlapCircleAll(PlayerController.instance.transform.position, skillRange, enemyLayerMask);
+        Collider2D[] enemiesFound = Physics2D.OverlapCircleAll(PlayerController.instance.transform.position, SkillRange, enemyLayerMask);
         if (enemiesFound.Length <= 0)
             return false;
 
-        float minDistance = skillRange + 1f;
+        float minDistance = SkillRange + 1f;
         Transform closestEnemy = null;
 
         foreach (Collider2D enemy in enemiesFound)

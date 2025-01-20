@@ -7,9 +7,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("REFERENCES")]
     [SerializeField] private Transform playerGraphic;
-
-    [Header("PLAYER STATISTICS")]
-    [SerializeField] private float moveSpeed = 1f;
+    private Player player;
 
     [Header("MOVEMENT SETTINGS")]
     [SerializeField] private float minDistanceToMove = .5f;
@@ -21,8 +19,13 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        if(instance != this)
+        if (instance != this)
             instance = this;
+    }
+
+    private void Start()
+    {
+        player = GetComponent<Player>();
     }
 
     private void Update()
@@ -37,7 +40,7 @@ public class PlayerController : MonoBehaviour
             if (distanceFromPlayer >= minDistanceToMove)
             {
                 Vector2 direction = (transform.position - targetPosition).normalized;
-                transform.position -= (Vector3)direction * moveSpeed * Time.deltaTime;
+                transform.position -= (Vector3)direction * player.MoveSpeed * Time.deltaTime;
                 ManagePlayerGraphicRotation();
             }
         }
@@ -45,15 +48,24 @@ public class PlayerController : MonoBehaviour
 
     private void ManagePlayerGraphicRotation()
     {
-        if(!isTurnedRight && transform.position.x < targetPosition.x)
+        if (!isTurnedRight && transform.position.x < targetPosition.x)
         {
             playerGraphic.transform.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
             isTurnedRight = !isTurnedRight;
         }
-        else if(isTurnedRight && transform.position.x > targetPosition.x)
+        else if (isTurnedRight && transform.position.x > targetPosition.x)
         {
             playerGraphic.transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
             isTurnedRight = !isTurnedRight;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Exp")
+        {
+            ExperienceDrop expDrop = other.gameObject.GetComponent<ExperienceDrop>();
+            player.GainExp(expDrop.ExpValue);
+            expDrop.Die();
         }
     }
 }

@@ -6,18 +6,23 @@ public class PlaceholderEnemyController : MonoBehaviour
     [Header("REFERENCES")]
     [SerializeField] private Transform placeholderEnemyGraphics;
 
-    [Header("PLACEHOLDER ENEMY STATISTICS")]
-    [SerializeField] private float moveSpeed = 10f;
-
     private Transform playerTransform;
+
     private bool isTurnedRight = true;
 
+    private PlaceholderEnemy placeholderEnemy;
+
+
+    private void Start()
+    {
+        placeholderEnemy = GetComponent<PlaceholderEnemy>();
+    }
     private void Update() => ChasePlayer();
 
     private void ChasePlayer()
     {
         Vector2 direction = (transform.position - PlayerController.instance.transform.position).normalized;
-        transform.position -= (Vector3)direction * moveSpeed * Time.deltaTime;
+        transform.position -= (Vector3)direction * placeholderEnemy.MoveSpeed * Time.deltaTime;
 
         ManagePlaceholderEnemyGraphicRotation();
     }
@@ -35,12 +40,17 @@ public class PlaceholderEnemyController : MonoBehaviour
             isTurnedRight = !isTurnedRight;
         }
     }
+    private void Die()
+    {
+        GameObject newExp = Instantiate(placeholderEnemy.ExpDrop);
+        newExp.transform.position = transform.position;
+        newExp.GetComponent<ExperienceDrop>().Init(placeholderEnemy.ExpDropped);
 
-    private void Die() => EnemiesPoolManger.instance.placeholderEnemyPool.Release(gameObject);
-
+        EnemiesPoolManger.instance.placeholderEnemyPool.Release(gameObject);
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Projectile")
+        if (other.gameObject.tag == "Projectile")
         {
             Destroy(other.gameObject);
             Die();

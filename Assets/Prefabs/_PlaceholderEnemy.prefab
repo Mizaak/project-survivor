@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3359583552873539614}
   - component: {fileID: 9200760154985338606}
   - component: {fileID: 3328061284628430488}
+  - component: {fileID: 1683588101318781492}
   - component: {fileID: 538268042221254281}
   m_Layer: 10
   m_Name: _PlaceholderEnemy
@@ -98,6 +99,21 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &1683588101318781492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3988440338047106801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8fc282d91172e84a8d422a3ccba4d88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expDrop: {fileID: 6820808301489104089, guid: 2066b72c0903faa46a0dbe14efff8de5, type: 3}
+  moveSpeed: 5
+  expDropped: 1
 --- !u!114 &538268042221254281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placeholderEnemyGraphics: {fileID: 2772935981121726061}
-  moveSpeed: 0.5
 --- !u!1 &7621920972420503075
 GameObject:
   m_ObjectHideFlags: 0

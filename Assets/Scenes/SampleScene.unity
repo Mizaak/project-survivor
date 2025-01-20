@@ -531,6 +531,7 @@ GameObject:
   - component: {fileID: 1462523618}
   - component: {fileID: 1462523619}
   - component: {fileID: 1462523620}
+  - component: {fileID: 1462523622}
   - component: {fileID: 1462523621}
   m_Layer: 0
   m_Name: _Player
@@ -632,8 +633,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerGraphic: {fileID: 377999987}
-  moveSpeed: 1
   minDistanceToMove: 1
+--- !u!114 &1462523622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462523617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8457f70c032718b49920b2f41ec8892e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLevel: 1
+  currentExp: 0
+  maxHP: 20
+  actualHP: 0
+  moveSpeed: 1
 --- !u!1 &1857385972
 GameObject:
   m_ObjectHideFlags: 0

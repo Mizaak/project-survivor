@@ -12,24 +12,11 @@ public class PlaceholderEnemyController : MonoBehaviour
     private Transform playerTransform;
     private bool isTurnedRight = true;
 
-    private void OnEnable()
-    {
-        Invoke(nameof(Die), 5f);
-    }
-
-    private void Start()
-    {
-        playerTransform = PlayerController.instance.transform;
-    }
-
-    private void Update()
-    {
-        ChasePlayer();
-    }
+    private void Update() => ChasePlayer();
 
     private void ChasePlayer()
     {
-        Vector2 direction = (transform.position - playerTransform.position).normalized;
+        Vector2 direction = (transform.position - PlayerController.instance.transform.position).normalized;
         transform.position -= (Vector3)direction * moveSpeed * Time.deltaTime;
 
         ManagePlaceholderEnemyGraphicRotation();
@@ -37,25 +24,26 @@ public class PlaceholderEnemyController : MonoBehaviour
 
     private void ManagePlaceholderEnemyGraphicRotation()
     {
-        if (!isTurnedRight && transform.position.x < playerTransform.position.x)
+        if (!isTurnedRight && transform.position.x < PlayerController.instance.transform.position.x)
         {
             placeholderEnemyGraphics.transform.rotation = new Quaternion(transform.rotation.x, 0, transform.rotation.z, transform.rotation.w);
             isTurnedRight = !isTurnedRight;
         }
-        else if (isTurnedRight && transform.position.x > playerTransform.position.x)
+        else if (isTurnedRight && transform.position.x > PlayerController.instance.transform.position.x)
         {
             placeholderEnemyGraphics.transform.rotation = new Quaternion(transform.rotation.x, 180, transform.rotation.z, transform.rotation.w);
             isTurnedRight = !isTurnedRight;
         }
     }
 
-    private void Die()
-    {
-        EnemiesPoolManger.instance.placeholderEnemyPool.Release(gameObject);
-    }
+    private void Die() => EnemiesPoolManger.instance.placeholderEnemyPool.Release(gameObject);
 
-    private void OnDisable()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        CancelInvoke();
+        if(other.gameObject.tag == "Projectile")
+        {
+            Destroy(other.gameObject);
+            Die();
+        }
     }
 }

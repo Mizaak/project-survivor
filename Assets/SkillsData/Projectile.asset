@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d65caef2f83a0dc4390ac19ceb020686, type: 3}
+  m_Name: Projectile
+  m_EditorClassIdentifier: 
+  skillName: Projectile
+  skillCooldown: 2
+  skillActualCooldown: 1.1216809
+  learned: 1
+  projectilePrefab: {fileID: 424196905738366518, guid: 46840b3cdf3f91d4d90c3cf1cd0d2dc5, type: 3}
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  skillRange: 5
+  projectileSpeed: 20
